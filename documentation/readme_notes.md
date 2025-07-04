@@ -47,7 +47,6 @@ npm run dev            # runs on http://localhost:5173
 ## Linting / Formatting
 
 - **Frontend:** `npm run lint` (ESLint with React rules).
-- **Backend:** add tests later (e.g. `pytest`).
 
 ## Quick Troubleshooting
 
@@ -55,13 +54,3 @@ npm run dev            # runs on http://localhost:5173
 |---------|--------------|-----|
 | `403` from `/api` | Vite dev-server needs restart after proxy change | Stop & rerun `npm run dev` |
 | `ModuleNotFoundError: flask` | Virtual environment not activated or deps not installed | `source .venv/bin/activate && pip install -r requirements.txt` |
-
-## Optional Enhancements
-
-- Production builds: `npm run build` (frontend); serve with `vite preview` or any static host.
-- Possible deployment targets: Render (Flask) + Netlify (React), Fly.io, or Heroku.
-- Add backend tests with `pytest`; document how to run them.
-
----
-
-(Add additional notes and polish sections here as development progresses.) 

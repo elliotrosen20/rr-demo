@@ -65,19 +65,19 @@ CREATE TABLE IF NOT EXISTS vas_requirements (
 ```bash
 # from repo root
 cd backend
-python -m venv .venv            # optional but recommended
-source .venv/bin/activate       # Windows: .venv\Scripts\activate
+python -m venv .venv
+source .venv/bin/activate
 pip install -r requirements.txt
-python app.py                   # runs on http://localhost:5000
+python app.py
 ```
 *Prefer `python app.py` over `flask run` – no env vars needed and works on all OSes.*
 
 ### 3.2 Frontend (React + Vite)
 ```bash
-# open a new terminal tab/window
+
 cd frontend
-npm install            # installs React, Vite, Tailwind, ESLint, etc.
-npm run dev            # runs on http://localhost:5173
+npm install
+npm run dev
 ```
 
 ### 3.3 Running the App
@@ -92,9 +92,4 @@ Run **both** servers in parallel (two terminals). Visit `http://localhost:5173` 
 | `ModuleNotFoundError: flask` | Virtual environment not activated or deps not installed | `source .venv/bin/activate && pip install -r requirements.txt` |
 
 ## 5. Mock-Data Mode
-To run the frontend without the backend, open `frontend/src/components/VASChecklist.jsx` and comment out the `fetch` call, then uncomment the provided `mockData` array.
-
-## 6. Deployment / Production Build
-* Build the frontend: `npm run build` (outputs static files to `dist/`).  
-* Preview locally: `npm run preview`.
-* Deploy backend + static `dist/` on any platform (Render, Fly.io, Heroku, etc.).
+To run the frontend without the backend, open `frontend/src/components/VASChecklist.jsx` and comment out the `fetch` call, then uncomment the provided `mockData` array and change `data` to `mockData` in the `setRequirements` call.

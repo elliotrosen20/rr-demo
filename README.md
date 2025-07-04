@@ -32,6 +32,7 @@ The API lives at `http://localhost:5000`, while the React dev server runs at `ht
 - **RESTful API Design** - The APIs in the backend follow REST conventions with resource-based URLs and appropriate HTTP methods. There is a single primary endpoint with additional functional routes showing the full API design.
 - **Hardcoded Data** - For demo purposes, real implementation would use a database. I decided to use hardcoded mock data for demo purposes to focus on UX and API integration rather than database setup complexity.
 - **Component Architecture** - I separated the workflow into distinct React components (VASDemo, VASChecklist, Success). Each component has a single responsibility, making the code easier to modify and extend as requirements evolve.
+- **User Flow** - I design a linear 3 step workflow (landing -> checklist -> success) to mirror the structured nature of the VAS process, such that users can't skip critical steps. After opening the checklist component, there is a fetch call to the backend to retrieve the VAS requirements for that particular sku. The 'Complete VAS' button only enables after all requirements are checked, ensuring 100% task completion.
 
 ### Database Schema (Production)
 While this demo uses hardcoded data, a production version would use this schema:

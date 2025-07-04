@@ -4,16 +4,15 @@ Small Flask + React (Vite) application that demonstrates how RetailReady transfo
 
 ## Table of Contents
 1. Demo Overview  
-2. Tech Stack & Key Decisions *(to be filled in)*  
-3. Prerequisites  
-4. Getting Started  
-   4.1 Backend (Flask)  
-   4.2 Frontend (React + Vite)  
-   4.3 Running the App  
-5. Troubleshooting  
-6. Mock-Data Mode  
-7. Deployment / Production Build  
-8. Contributing
+2. Tech Stack & Key Decisions  
+3. Getting Started  
+   3.1 Backend (Flask)  
+   3.2 Frontend (React + Vite)  
+   3.3 Running the App  
+4. Troubleshooting  
+5. Mock-Data Mode  
+6. Deployment / Production Build  
+7. Contributing
 
 ---
 
@@ -25,20 +24,43 @@ This repo contains a two-part demo:
 
 The API lives at `http://localhost:5000`, while the React dev server runs at `http://localhost:5173` (default Vite port).
 
-## 2. Tech Stack & Key Decisions *(to be filled in)*
-*(Section to be completed later – will describe why Flask, Vite, proxy vs CORS, etc.)*
+## 2. Tech Stack & Key Decisions
 
-## 3. Prerequisites
+### Architecture Choices
+- **Flask** - Flask's lightweight nature allows for rapid prototyping and development. This worked well for developing a set of features quickly.
+- **React + Vite** - React provides a modern frontend for component based architecture with local state management.
+- **RESTful API Design** - The APIs in the backend follow REST conventions with resource-based URLs and appropriate HTTP methods. There is a single primary endpoint with additional functional routes showing the full API design.
+- **Hardcoded Data** - For demo purposes, real implementation would use a database. I decided to use hardcoded mock data for demo purposes to focus on UX and API integration rather than database setup complexity.
+- **Component Architecture** - I separated the workflow into distinct React components (VASDemo, VASChecklist, Success). Each component has a single responsibility, making the code easier to modify and extend as requirements evolve.
 
-| Tool | Minimum Version | Check |
-|------|-----------------|-------|
-| **Node.js** | 18 | `node -v` |
-| **Python** | 3.9 | `python --version` |
-| **Git** | – | `git --version` |
+### Database Schema (Production)
+While this demo uses hardcoded data, a production version would use this schema:
 
-## 4. Getting Started
+```sql
+CREATE TABLE IF NOT EXISTS stores (
+    id INTEGER PRIMARY KEY,
+    name VARCHAR(100)
+);
 
-### 4.1 Backend (Flask)
+CREATE TABLE IF NOT EXISTS skus (
+    id INTEGER PRIMARY KEY,
+    name VARCHAR(100),
+    store_id INTEGER,
+    FOREIGN KEY (store_id) REFERENCES stores(id)
+);
+
+CREATE TABLE IF NOT EXISTS vas_requirements (
+    id INTEGER PRIMARY KEY,
+    sku_id INTEGER,
+    requirement_text TEXT,
+    step_order INTEGER,
+    FOREIGN KEY (sku_id) REFERENCES skus(id)
+);
+```
+
+## 3. Getting Started
+
+### 3.1 Backend (Flask)
 ```bash
 # from repo root
 cd backend
@@ -49,7 +71,7 @@ python app.py                   # runs on http://localhost:5000
 ```
 *Prefer `python app.py` over `flask run` – no env vars needed and works on all OSes.*
 
-### 4.2 Frontend (React + Vite)
+### 3.2 Frontend (React + Vite)
 ```bash
 # open a new terminal tab/window
 cd frontend
@@ -57,26 +79,21 @@ npm install            # installs React, Vite, Tailwind, ESLint, etc.
 npm run dev            # runs on http://localhost:5173
 ```
 
-### 4.3 Running the App
+### 3.3 Running the App
 Run **both** servers in parallel (two terminals). Visit `http://localhost:5173` in your browser. Vite proxies API requests beginning with `/api` to `http://localhost:5000`.
 
 ---
 
-## 5. Troubleshooting
+## 4. Troubleshooting
 | Symptom | Likely Cause | Fix |
 |---------|--------------|-----|
 | `403` from `/api` | Vite dev-server needs restart after proxy change | Stop & rerun `npm run dev` |
 | `ModuleNotFoundError: flask` | Virtual environment not activated or deps not installed | `source .venv/bin/activate && pip install -r requirements.txt` |
 
-## 6. Mock-Data Mode
+## 5. Mock-Data Mode
 To run the frontend without the backend, open `frontend/src/components/VASChecklist.jsx` and comment out the `fetch` call, then uncomment the provided `mockData` array.
 
-## 7. Deployment / Production Build
+## 6. Deployment / Production Build
 * Build the frontend: `npm run build` (outputs static files to `dist/`).  
 * Preview locally: `npm run preview`.
 * Deploy backend + static `dist/` on any platform (Render, Fly.io, Heroku, etc.).
-
-## 8. Contributing
-1. Frontend lint: `npm run lint`  
-2. Future: add backend tests with `pytest`.  
-3. Open issues / PRs welcome!

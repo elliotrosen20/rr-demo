@@ -10,9 +10,7 @@ Small Flask + React (Vite) application that demonstrates how RetailReady transfo
    3.2 Frontend (React + Vite)  
    3.3 Running the App  
 4. Troubleshooting  
-5. Mock-Data Mode  
-6. Deployment / Production Build  
-7. Contributing
+5. Mock-Data Mode
 
 ---
 
@@ -74,7 +72,7 @@ python app.py
 
 ### 3.2 Frontend (React + Vite)
 ```bash
-
+# from repo root
 cd frontend
 npm install
 npm run dev

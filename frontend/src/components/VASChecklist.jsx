@@ -44,45 +44,49 @@ const VASChecklist = ({ onComplete }) => {
   const allCompleted = requirements.length > 0 && completedItems.size === requirements.length;
 
   if (loading) {
-    return <div style={{ textAlign: 'center', padding: '2rem' }}>Loading VAS requirements...</div>;
+    return <div className="text-center p-8 text-lg text-gray-600">Loading VAS requirements...</div>;
   }
 
   return (
-    <div style={{ padding: '2rem' }}>
-      <h2>VAS Requirements - Athletic Bottoms</h2>
-      <p>Complete all requirements below:</p>
+    <div className="p-8 max-w-4xl mx-auto">
+      <div className="mb-8">
+        <h2 className="text-2xl font-bold text-gray-800 mb-2">Please Follow Instructions</h2>
+        <p className="text-gray-600">SKU: Athletic Bottoms - Size M</p>
+      </div>
       
-      <div style={{ margin: '2rem 0' }}>
+      <div className="space-y-4 mb-8">
         {requirements.map((req) => (
-          <div key={req.id} style={{ margin: '1rem 0', padding: '1rem', border: '1px solid #ddd', borderRadius: '5px' }}>
-            <label style={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }}>
+          <div key={req.id} className="border border-gray-200 rounded-lg p-4 bg-white shadow-sm hover:shadow-md transition-shadow duration-200">
+            <label className="flex items-center cursor-pointer">
               <input
                 type="checkbox"
                 checked={completedItems.has(req.id)}
                 onChange={() => handleCheckboxChange(req.id)}
-                style={{ marginRight: '1rem' }}
+                className="mr-4 w-5 h-5 text-blue-600 rounded focus:ring-blue-500 focus:ring-2"
               />
-              <span>{req.requirement_text}</span>
+              <span className="text-gray-700 text-lg">{req.requirement_text}</span>
             </label>
           </div>
         ))}
       </div>
 
-      <button
-        onClick={handleComplete}
-        disabled={!allCompleted}
-        style={{
-          padding: '1rem 2rem',
-          fontSize: '1.2rem',
-          backgroundColor: allCompleted ? '#28a745' : '#ccc',
-          color: 'white',
-          border: 'none',
-          borderRadius: '5px',
-          cursor: allCompleted ? 'pointer' : 'not-allowed'
-        }}
-      >
-        Complete VAS
-      </button>
+      <div className="flex justify-center">
+        <button
+          onClick={handleComplete}
+          disabled={!allCompleted}
+          style={{
+            padding: '1rem 2rem',
+            fontSize: '1.2rem',
+            backgroundColor: allCompleted ? '#28a745' : '#ccc',
+            color: 'white',
+            border: 'none',
+            borderRadius: '5px',
+            cursor: allCompleted ? 'pointer' : 'not-allowed'
+          }}
+        >
+          Complete VAS
+        </button>
+      </div>
     </div>
   );
 };
